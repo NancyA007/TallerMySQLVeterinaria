@@ -1,0 +1,35 @@
+CREATE DATABASE IF NOT EXISTS Veterinaria;
+
+USE Veterinaria;
+
+CREATE TABLE Clientes(
+    ID_Cliente INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    Nombre VARCHAR(100) NOT NULL,
+    Direccion VARCHAR(100) NOT NULL,
+    CorreoElectronico VARCHAR(100) NOT NULL UNIQUE,
+    Activo TINYINT NOT NULL
+);
+
+CREATE TABLE Servicios(
+    ID_Servicio INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL,
+    Precio DECIMAL(10,2) NOT NULL
+);
+
+CREATE TABLE Mascotas(
+    ID_Mascota INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    ID_Cliente INT NOT NULL,
+    Nombre VARCHAR(20) NOT NULL,
+    nPatas INT NOT NULL,
+    Estatura FLOAT NOT NULL,
+    FOREIGN KEY (ID_Cliente) REFERENCES Clientes(ID_Cliente)
+);
+
+CREATE TABLE Mascota_Servicio(
+    ID_MascotaServicio INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    ID_Mascota INT NOT NULL,
+    ID_Servicio INT NOT NULL,
+    Fecha DATE NOT NULL,
+    FOREIGN KEY (ID_Mascota) REFERENCES Mascotas(ID_Mascota),
+    FOREIGN KEY (ID_Servicio) REFERENCES Servicios(ID_Servicio)
+);
